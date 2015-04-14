@@ -1,0 +1,61 @@
+<!-- START:head -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ruby Store</title>
+    <link href="/assets/my.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="/assets/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css" />
+    <%= javascript_include_tag "jquery" %>
+    <%= javascript_include_tag "my" %>
+    <%= csrf_meta_tag %>
+  </head>
+  <!-- END:head -->
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+          <%= yield %>
+          <!-- /.blog-post -->
+        </div>
+        <!-- /.blog-main -->
+        <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+          <div class="sidebar-module sidebar-module-inset">
+            <div class="">
+              <a href="/">Home</a>
+            </div>
+            <div class="">
+              <h4>Sort</h4>
+              <%= sortable "title", "by Title" %>
+              <br>
+              <%= sortable "price", "by Price" %>
+            </div>
+            <div class="search">
+              <h4>Search</h4>
+              <%= form_tag products_path, :method => :get do %>
+                <p>
+                  <%= text_field_tag :search, params[:search], placeholder: 'Search by title'  %>
+                  <%= text_field_tag :price_from, params[:price_from], placeholder: 'Price from' %>
+                  <%= text_field_tag :price_up_to, params[:price_up_to], placeholder: 'Price up to' %>
+                  <br>
+                  <span>only with images</span>
+                  <%= check_box_tag 'img_only', true %>
+                  <br>
+                  <%= submit_tag "Search", :name => nil %>
+                </p>
+              <% end %>
+            </div>
+            <h4>Cart</h4>
+            <div id="cart">
+              <%= render @cart %>
+            </div>
+          </div>
+          <div class="sidebar-module">
+            <h4></h4>
+          </div>
+        </div>
+        <!-- /.blog-sidebar -->
+      </div>
+      <!-- /.row -->
+    </div>
+  </body>
+</html>

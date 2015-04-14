@@ -1,0 +1,20 @@
+<% @products.each do |product| %>
+  <div class="blog-post" style="padding: 20px;">
+    <div class="" style="float: left; padding-right: 20px;">
+      <h2 class="blog-post-title"><%= product.title %></h2>
+      <p class="blog-post-meta"><%= number_to_currency(product.price) %></p>
+      <%= button_to 'Add to Cart', line_items_path(product_id: product),
+        remote: true %>
+    </div>
+    <% if product.image_url.blank? %>
+    <img src="http://fakeimg.pl/300x150/692845/eae0d0/?text=no%20img" style="float: right;">
+    <% else %>
+    <img src="http://fakeimg.pl/300x150/282828/eae0d0/?text=<%= product.image_url %>" style="float: right;">
+    <% end %>
+
+    <div class="" style="clear: both;"></div>
+    <p>
+      <%= product.description %>
+    </p>
+  </div>
+<% end %>
